@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - /opt/cpanel/ea-java11/bin/mvn clean install
+  source:
+    - .
