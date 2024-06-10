@@ -14,6 +14,6 @@ public class controllertest {
 
     @GetMapping
     public ResponseEntity<String> getAllAcounts() {
-        return new ResponseEntity<String>("oc", null, 200);
+        return new ResponseEntity<String>("oc todo bien", null, 200);
     }
 }
