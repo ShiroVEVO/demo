@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/testeo")
 public class controllertest {
-
+//IDK
     @GetMapping
     public ResponseEntity<String> getAllAcounts() {
         return new ResponseEntity<String>("oc todo bien", null, 200);
