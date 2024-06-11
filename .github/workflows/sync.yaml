@@ -16,9 +16,9 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-session-name: awssyncsession
-          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-          aws-region: ${{ secrets. AWS_REGION}}
+          role-to-assume: arn:aws:iam::590183820971:role/github-trust-role
+          aws-region: us-east-2
 
       - name: Sync S3 bucket
         run: |
-          aws s3 sync . s3://${{ secrets. AWS_BUCKET_NAME }} --delete
+          aws s3 sync . s3://arn:aws:s3:::prueba-gardenia --delete
