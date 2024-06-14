@@ -6,6 +6,36 @@ on:
     - main
 
 jobs:
+  build:
+    name: Build & Compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # Actualiza a la versión 4
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3  # Configura Java 17
+        with:
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build with Maven
+        run: mvn clean compile package -DskipTests  # Ejecuta comandos Maven para compilar y empaquetar
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: jar-files
+          path: target/*.jar  # Archiva los archivos JAR construidos
+
   deploy:
     runs-on: ubuntu-latest
     steps:
