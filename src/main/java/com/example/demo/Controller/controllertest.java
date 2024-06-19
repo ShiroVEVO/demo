@@ -13,6 +13,6 @@ import lombok.RequiredArgsConstructor;
 public class controllertest {
     @GetMapping
     public ResponseEntity<String> getAllAcounts() {
-        return new ResponseEntity<String>("oc todo bien", null, 200);
+        return new ResponseEntity<String>("oc todo bien v1.0", null, 200);
     }
 }
