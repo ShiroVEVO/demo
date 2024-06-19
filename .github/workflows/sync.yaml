@@ -38,6 +38,7 @@ jobs:
           path: target/*.jar  # Archiva los archivos JAR construidos
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
