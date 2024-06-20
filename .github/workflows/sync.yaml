@@ -36,6 +36,7 @@ jobs:
         run: ls -l target/  # Verifica que el archivo JAR está presente
   
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       #oh no
@@ -46,6 +47,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-2'
       #Oh no
+
       - name: Upload JAR to S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -56,4 +58,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-2'
           SOURCE_DIR: 'target'  # JAR file source on github Workflows directory
-          DEST_DIR: 'target'  # destination folder on S3 Bucket
+          DEST_DIR: ''  # destination folder on S3 Bucket
