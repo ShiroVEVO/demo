@@ -6,7 +6,7 @@ on:
     - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -37,12 +37,7 @@ jobs:
       
       - name: Print working directory
         run: pwd  # Imprime el directorio de trabajo actual
-  
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      #oh no
+    #Ohno
       - name: Delete previous artifacts in S3
         run: aws s3 rm s3://${{ secrets.AWS_S3_BUCKET }}/ --recursive
         env:
