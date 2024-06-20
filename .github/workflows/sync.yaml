@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4  # Actualiza a la versión 4
@@ -35,7 +34,18 @@ jobs:
 
       - name: List target directory
         run: ls -l target/  # Verifica que el archivo JAR está presente
-
+  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      #oh no
+      - name: Delete previous artifacts in S3
+        run: aws s3 rm s3://${{ secrets.AWS_S3_BUCKET }}/ --recursive
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-2'
+      #Oh no
       - name: Upload JAR to S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -45,5 +55,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-2'
-          SOURCE_DIR: 'target'  # Directorio de origen donde se encuentra el archivo JAR
-          DEST_DIR: '/'  
+          SOURCE_DIR: 'target'  # JAR file source on github Workflows directory
+          DEST_DIR: 'target'  # destination folder on S3 Bucket
