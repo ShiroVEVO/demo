@@ -34,6 +34,9 @@ jobs:
 
       - name: List target directory
         run: ls -l target/  # Verifica que el archivo JAR está presente
+      
+      - name: Print working directory
+        run: pwd  # Imprime el directorio de trabajo actual
   
   deploy:
     needs: build
